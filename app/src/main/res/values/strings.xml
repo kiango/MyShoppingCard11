@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">MyShoppingCard1</string>
+
+    <string name="activity_name">Main Activity</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="btn_goto_card">GoTo Card</string>
+
+    <string name="fragment_item_select">Item Fragment</string>
+    <string name="fragment_shoppingcard">Shoppingcard Fragment</string>
+
+    <string name="card_item_text">Highlighted item</string>
+
+    <string name="back_to_itemlist">to items</string>
+
+    <string name="card_frag">Card</string>
+    <string name="item_frag">Item</string>
+
+
+
+</resources>

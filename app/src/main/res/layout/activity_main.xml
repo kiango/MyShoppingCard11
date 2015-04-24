@@ -1,0 +1,47 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:background="#ffff66"
+    >
+
+    <TextView
+        android:text="@string/activity_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView2"
+        />
+
+    <FrameLayout
+        android:id="@+id/fragment_container"
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        android:layout_below="@+id/textView2"
+        android:background="#ffffcc"
+
+
+
+
+        />
+
+    <!--fragment
+        android:id="@+id/select_item_fragment"
+        android:name="com.example.torsh.myshoppingcard1.SelectItemFragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        tools:layout="@layout/select_item_fragment" />
+
+    <fragment
+        android:id="@+id/shopping_card_fragment"
+        android:name="com.example.torsh.myshoppingcard1.SelectItemFragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        tools:layout="@layout/shopping_card_fragment" /-->
+
+
+</RelativeLayout>
