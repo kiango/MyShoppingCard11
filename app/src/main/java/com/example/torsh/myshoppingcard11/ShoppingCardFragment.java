@@ -23,6 +23,8 @@ import android.widget.Toast;
  * Fragment for showing the shopping card (show selected items total amount
  */
 
+//ToDo: clear text after insert;
+
 public class ShoppingCardFragment extends Fragment {
 
     ShoppingCardDAO shoppingCardDAO;

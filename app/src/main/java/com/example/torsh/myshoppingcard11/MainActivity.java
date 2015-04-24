@@ -6,7 +6,6 @@ import android.app.Fragment;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Toast;
 
 /*
@@ -14,7 +13,7 @@ import android.widget.Toast;
  * by clicking 'I' and 'C' buttons on the action bar menu.
 * */
 
-// ToDo: Use case test needed
+// ToDo: Use case test; Remove extra toasts
 // ToDo: Close db.connection after usage;
 
 

@@ -220,6 +220,9 @@ public class SelectItemFragment extends Fragment {
     }
 
     public void putToShoppingCard(){
-        itemDAO.insertToCard(Integer.parseInt(item_id_clicked));
+
+        if ( item_id_clicked  != null)
+            itemDAO.insertToCard(Integer.parseInt(item_id_clicked));
+        Toast.makeText(getActivity().getBaseContext(), "Select an item from list", Toast.LENGTH_SHORT).show();
     }
 }
