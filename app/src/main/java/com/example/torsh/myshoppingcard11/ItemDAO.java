@@ -8,8 +8,8 @@ import android.util.Log;
 import android.widget.Toast;
 
 /**
- * In this class we query the created tables for insert (insertItem)
- * and select (getItems)
+ * In this class we query the created tables for
+ * insert (insertItem), select (getItems) and update (updateItem)
  */
 
 public class ItemDAO {
@@ -50,7 +50,7 @@ public class ItemDAO {
         contentValues.put(ITEM_NAME, itemName);
         contentValues.put(PRICE, itemPrice); // check Type int vs string!
         long id = db.insert(TABLE_NAME_ITEMS, null, contentValues);
-        Toast.makeText(context, "inserted id:  " + ((int) id), Toast.LENGTH_SHORT).show();
+        //Toast.makeText(context, "inserted id:  " + ((int) id), Toast.LENGTH_SHORT).show();
 
         return id;
     }
@@ -70,7 +70,7 @@ public class ItemDAO {
 
 
     public void deleteItem(long itemID) {
-        Toast.makeText(context, "Deleting: "+ itemID, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(context, "Deleting: "+ itemID, Toast.LENGTH_SHORT).show();
         db.delete(TABLE_NAME_ITEMS, ITEM_ID+" = "+itemID, null);
     }
 
@@ -101,7 +101,7 @@ public class ItemDAO {
                 null );
 
         if ( cursor.moveToFirst() ) {
-            Toast.makeText(context, "Item already Selected", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "Item is in the card!", Toast.LENGTH_SHORT).show();
             return true;
 
         } else {

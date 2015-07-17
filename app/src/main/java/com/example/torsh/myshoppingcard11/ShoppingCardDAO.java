@@ -41,7 +41,7 @@ public class ShoppingCardDAO {
     public void openDb() {
         db = dbHelper.getWritableDatabase();
         dbHelper.onCreate(db);
-        Toast.makeText(context, "openDB card called", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(context, "openDB card called", Toast.LENGTH_SHORT).show();
     }
 
     public Cursor getSelectedItems(){
@@ -51,7 +51,7 @@ public class ShoppingCardDAO {
     }
 
     public void deleteItemFromCard(long itemID) {
-        Toast.makeText(context, "deleting: "+ itemID, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(context, "deleting: "+ itemID, Toast.LENGTH_SHORT).show();
         db.delete(TABLE_NAME_SHOPPING_CARD, ITEM_ID+" = "+itemID, null);
     }
 

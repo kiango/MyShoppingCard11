@@ -4,10 +4,9 @@ import android.content.Context;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.os.Message;
-import android.widget.Toast;
+
 /*
-* In this class we create only 2 tables
+* In this class we create 2 tables
 * One table (itemTable) for items inserted
 * One table (shoppingCard) for selected items into shopping card.
 *
@@ -77,7 +76,7 @@ public class DBHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         //com.example.torsh.mydbexample.Message.message(context, "onUpgrade");
-        Toast.makeText(context, "onUpgrade called", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(context, "onUpgrade called", Toast.LENGTH_SHORT).show();
 
         try {
             db.execSQL(DELETE_ITEM_TABLE);

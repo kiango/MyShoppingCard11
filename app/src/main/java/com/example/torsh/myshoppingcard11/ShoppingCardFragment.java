@@ -1,8 +1,7 @@
 package com.example.torsh.myshoppingcard11;
 
-import android.app.ListFragment;
+
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.app.Fragment;
@@ -20,10 +19,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 /**
- * Fragment for showing the shopping card (show selected items total amount
+ * Fragment for showing the shopping card (show selected items total amount)
  */
 
-//ToDo: clear text after insert;
 
 public class ShoppingCardFragment extends Fragment {
 
@@ -40,8 +38,6 @@ public class ShoppingCardFragment extends Fragment {
     //itemDAO = new ItemDAO(relativeLayoutItemFrag.getContext());
     //long id = itemDAO.insertItem(itemName, price);
 
-
-    //ToDo: list view (id, name, price, quantity)
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -62,13 +58,16 @@ public class ShoppingCardFragment extends Fragment {
         View.OnClickListener listener1 = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int number = Integer.parseInt(quantityTextView.getText().toString());
-                //number = number+1;
-                number++;
-                quantityTextView.setText(String.valueOf(number));
-                if ( number > 0 )
-                    buttonSubtract.setClickable(true);
-
+                if (!quantityTextView.getText().toString().equals("")){
+                    int number = Integer.parseInt(quantityTextView.getText().toString());
+                    //number = number+1;
+                    number++;
+                    quantityTextView.setText(String.valueOf(number));
+                    if ( number > 0 )
+                        buttonSubtract.setClickable(true);
+                } else {
+                    Toast.makeText(getActivity().getBaseContext(), "select an item!", Toast.LENGTH_SHORT).show();
+                }
             }
         };
         buttonAdd.setOnClickListener(listener1);
@@ -78,18 +77,21 @@ public class ShoppingCardFragment extends Fragment {
         View.OnClickListener listener2 = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int number = Integer.parseInt(quantityTextView.getText().toString());
-                number--;
-                quantityTextView.setText(String.valueOf(number));
-                if ( number <= 0 ) {
-                    deleteFromCard();
-                    refreshList();
-                    populateTotalPurchase();
-                    buttonSubtract.setClickable(false);
-                    quantityTextView.setText("");
-                    itemNameTextView.setText("");
+                if (!quantityTextView.getText().toString().equals("")){
+                    int number = Integer.parseInt(quantityTextView.getText().toString());
+                    number--;
+                    quantityTextView.setText(String.valueOf(number));
+                    if ( number <= 0 ) {
+                        deleteFromCard();
+                        refreshList();
+                        populateTotalPurchase();
+                        buttonSubtract.setClickable(false);
+                        quantityTextView.setText("");
+                        itemNameTextView.setText("");
+                    }
+                } else {
+                    Toast.makeText(relativeLayoutCardFrag.getContext(), "select an item!", Toast.LENGTH_SHORT).show();
                 }
-                //Toast.makeText(relativeLayoutCardFrag.getContext(), "dfgdf", Toast.LENGTH_SHORT).show();
             }
         };
         buttonSubtract.setOnClickListener(listener2);
@@ -110,6 +112,8 @@ public class ShoppingCardFragment extends Fragment {
                     shoppingCardDAO.updateQuantity(item_id, qnt);
                     refreshList();
                     populateTotalPurchase();
+                    itemNameTextView.setText("");
+                    quantityTextView.setText("");
                 }
             }
         };
@@ -120,9 +124,13 @@ public class ShoppingCardFragment extends Fragment {
         View.OnClickListener listener4 = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                deleteFromCard();
-                refreshList();
-                populateTotalPurchase();
+                if ( quantityTextView.getText().toString().equals("")) {
+                    Toast.makeText(getActivity().getBaseContext(), "no item selected", Toast.LENGTH_SHORT).show();
+                } else {
+                    deleteFromCard();
+                    refreshList();
+                    populateTotalPurchase();
+                }
             }
         };
         buttonDelete.setOnClickListener(listener4);

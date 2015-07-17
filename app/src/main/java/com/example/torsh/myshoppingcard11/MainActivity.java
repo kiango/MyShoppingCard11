@@ -10,11 +10,11 @@ import android.widget.Toast;
 
 /*
 * In this class we use only Fragment transaction manager to switch between 2 fragments
- * by clicking 'I' and 'C' buttons on the action bar menu.
+* by clicking 'Item' and 'Card' buttons on the action bar menu.
+*
+* DB-connection might be closed after usage
+*
 * */
-
-// ToDo: Use case test; Remove extra toasts
-// ToDo: Close db.connection after usage;
 
 
 
@@ -27,8 +27,7 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-        // bring fragment 1 to the activity view by default / onCreate :
+        // brings fragment 1 to the activity view by default / onCreate :
         //fragmentManager = getFragmentManager();
         fragmentManager.beginTransaction().add(R.id.fragment_container, new SelectItemFragment(), "ITEM_FRAGMENT").commit();
     }

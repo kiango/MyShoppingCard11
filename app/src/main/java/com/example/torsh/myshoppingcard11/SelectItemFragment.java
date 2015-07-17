@@ -17,9 +17,11 @@ import android.widget.Toast;
 
 /**
  * Fragment for user to
- * - insert items into database
+ * - insert, update and delete items into database
  * - to select items from the list and insert it into shopping card table
  */
+
+//Todo: listView updates correctly on the emulaor but incorrect on real device when doing insert, update, delete.
 
 public class SelectItemFragment extends Fragment {
 
@@ -51,7 +53,7 @@ public class SelectItemFragment extends Fragment {
         View.OnClickListener listener_insert = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity().getBaseContext(), "inserting", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getActivity().getBaseContext(), "inserting", Toast.LENGTH_SHORT).show();
                 addItems();
             }
         };
@@ -61,7 +63,7 @@ public class SelectItemFragment extends Fragment {
         View.OnClickListener listener_update = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity().getBaseContext(), "updating", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getActivity().getBaseContext(), "updating", Toast.LENGTH_SHORT).show();
                 updateItem();
             }
         };
@@ -71,7 +73,7 @@ public class SelectItemFragment extends Fragment {
         View.OnClickListener listener_delete = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity().getBaseContext(), "deleting", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getActivity().getBaseContext(), "deleting", Toast.LENGTH_SHORT).show();
                 deleteItem();
             }
         };
@@ -80,13 +82,14 @@ public class SelectItemFragment extends Fragment {
         View.OnClickListener listener_card = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity().getBaseContext(), "adding to card", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getActivity().getBaseContext(), "adding to card", Toast.LENGTH_SHORT).show();
                 putToShoppingCard();
             }
         };
         buttonCard.setOnClickListener(listener_card);
 
         showItems();
+        //refreshList();
         showListItemByClick();
 
         return relativeLayout1;
@@ -102,7 +105,7 @@ public class SelectItemFragment extends Fragment {
             Toast.makeText(relativeLayoutItemFrag.getContext(), "Invalid Price", Toast.LENGTH_SHORT).show();
             return null;
         } else {
-            Toast.makeText(relativeLayoutItemFrag.getContext(), " ok " + price_str, Toast.LENGTH_SHORT).show();
+            //Toast.makeText(relativeLayoutItemFrag.getContext(), " ok " + price_str, Toast.LENGTH_SHORT).show();
             return price_str;
         }
     }
@@ -117,7 +120,7 @@ public class SelectItemFragment extends Fragment {
             Toast.makeText(relativeLayoutItemFrag.getContext(), "Invalid Item", Toast.LENGTH_SHORT).show();
             return null;
         } else {
-            Toast.makeText(relativeLayoutItemFrag.getContext(), name +" ok ", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(relativeLayoutItemFrag.getContext(), name +" item name ok ", Toast.LENGTH_SHORT).show();
             return name;
         }
     }
@@ -134,7 +137,7 @@ public class SelectItemFragment extends Fragment {
 
             itemDAO = new ItemDAO(relativeLayoutItemFrag.getContext()); //initialising itemDAO !!
             long id = itemDAO.insertItem(itemName, price);
-            Toast.makeText(relativeLayoutItemFrag.getContext(), "Row id: " + Long.toString(id), Toast.LENGTH_SHORT).show();
+            //Toast.makeText(relativeLayoutItemFrag.getContext(), "Row id: " + Long.toString(id), Toast.LENGTH_SHORT).show();
             showItems();
         } else
             Toast.makeText(relativeLayoutItemFrag.getContext(), "no item added!", Toast.LENGTH_SHORT).show();
@@ -175,7 +178,7 @@ public class SelectItemFragment extends Fragment {
         if (itemDAO.getItems() == null)
             Toast.makeText(relativeLayoutItemFrag.getContext(),"null items!", Toast.LENGTH_SHORT).show();
 
-        // to get the database rows start by get the returned cursor obj from itemDAO:
+        // to get the database rows, start by get the returned cursor obj from itemDAO:
         simpleCursorAdapter = new SimpleCursorAdapter(
                 relativeLayoutItemFrag.getContext(),
                 android.R.layout.simple_list_item_2,
@@ -194,16 +197,14 @@ public class SelectItemFragment extends Fragment {
     }
 
 
-
     // for updating the list after CRUD
     private void refreshList(){
         simpleCursorAdapter.changeCursor(itemDAO.getItems());
-        simpleCursorAdapter.getCursor();
+        simpleCursorAdapter.notifyDataSetChanged();
+        //simpleCursorAdapter.getCursor();
     }
 
-
-
-    // catch the item on the list and show them in the EditText fro editing
+    // catch the item on the list and show them in the EditText for editing
     private void showListItemByClick(){
         listView.setOnItemClickListener( new AdapterView.OnItemClickListener() {
             @Override
@@ -212,17 +213,20 @@ public class SelectItemFragment extends Fragment {
                 item_id_clicked = c.getString(0);
                 itemName_clicked = c.getString(1);
                 itemPrice_clicked = c.getString(2);
-                Toast.makeText(relativeLayoutItemFrag.getContext(), "id: "+item_id_clicked.toString(), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(relativeLayoutItemFrag.getContext(), "id: "+item_id_clicked.toString(), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(relativeLayoutItemFrag.getContext(), listView.getChildAt(1).toString(), Toast.LENGTH_SHORT).show();
                 nameEditText.setText(itemName_clicked);
                 priceEditText.setText(itemPrice_clicked);
             }
         });
     }
 
-    public void putToShoppingCard(){
+    public void putToShoppingCard() {
 
-        if ( item_id_clicked  != null)
+        if (item_id_clicked != null) {
             itemDAO.insertToCard(Integer.parseInt(item_id_clicked));
-        Toast.makeText(getActivity().getBaseContext(), "Select an item from list", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(getActivity().getBaseContext(), "Select an item from list", Toast.LENGTH_SHORT).show();
+        }
     }
 }
