@@ -21,8 +21,6 @@ import android.widget.Toast;
  * - to select items from the list and insert it into shopping card table
  */
 
-//Todo: listView updates correctly on the emulaor but incorrect on real device when doing insert, update, delete.
-
 public class SelectItemFragment extends Fragment {
 
     EditText nameEditText, priceEditText;
@@ -89,7 +87,7 @@ public class SelectItemFragment extends Fragment {
         buttonCard.setOnClickListener(listener_card);
 
         showItems();
-        //refreshList();
+        refreshList();
         showListItemByClick();
 
         return relativeLayout1;
@@ -145,8 +143,7 @@ public class SelectItemFragment extends Fragment {
 
 
     public void updateItem(){
-        Cursor c = ((SimpleCursorAdapter) listView.getAdapter()).getCursor();
-        item_id_clicked = c.getString(0);
+        //Toast.makeText(getActivity().getBaseContext(), item_id_clicked, Toast.LENGTH_SHORT).show();
 
         String itemName = validatedItemName();
         String itemPrice = validatedItemPrice();
@@ -155,15 +152,12 @@ public class SelectItemFragment extends Fragment {
             int price = Integer.parseInt(itemPrice);
             itemDAO.updateItem(itemName, price, item_id_clicked);
             showItems();
-
         }
     }
 
 
     public void deleteItem(){
-        Cursor c = ((SimpleCursorAdapter) listView.getAdapter()).getCursor();
-        item_id_clicked = c.getString(0);
-        itemDAO.deleteItem( Long.parseLong(item_id_clicked) );
+        itemDAO.deleteItem(Long.parseLong(item_id_clicked));
         showItems();
     }
 
@@ -189,19 +183,8 @@ public class SelectItemFragment extends Fragment {
 
         listView = (ListView) relativeLayoutItemFrag.findViewById(R.id.listViewItem);
         listView.setAdapter(simpleCursorAdapter);
-
-        // ToDo: where to close the cursor?
-
-        refreshList();
+        
         //itemDAO.closeDB();
-    }
-
-
-    // for updating the list after CRUD
-    private void refreshList(){
-        simpleCursorAdapter.changeCursor(itemDAO.getItems());
-        simpleCursorAdapter.notifyDataSetChanged();
-        //simpleCursorAdapter.getCursor();
     }
 
     // catch the item on the list and show them in the EditText for editing
@@ -219,6 +202,13 @@ public class SelectItemFragment extends Fragment {
                 priceEditText.setText(itemPrice_clicked);
             }
         });
+    }
+
+    // for updating the list after CRUD
+    private void refreshList(){
+        simpleCursorAdapter.changeCursor(itemDAO.getItems());
+        //simpleCursorAdapter.notifyDataSetChanged();
+        simpleCursorAdapter.getCursor();
     }
 
     public void putToShoppingCard() {

@@ -185,7 +185,7 @@ public class ShoppingCardFragment extends Fragment {
         else Toast.makeText(relativeLayoutCardFrag.getContext(), "card empty", Toast.LENGTH_SHORT).show();
     }
 
-    // catch the item on the list and show them in the EditText fro editing
+    // catch the item on the list and show them in the EditText for editing
     private void showListItemByClick(){
         listView_card.setOnItemClickListener( new AdapterView.OnItemClickListener() {
             @Override
@@ -196,7 +196,7 @@ public class ShoppingCardFragment extends Fragment {
                 itemPrice_clicked = c.getString(2);
                 itemQuantity_clicked = c.getString(3);
 
-                Toast.makeText(getActivity().getBaseContext(), item_id_clicked.toString(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity().getBaseContext(), item_id_clicked, Toast.LENGTH_SHORT).show();
                 itemNameTextView.setText(itemName_clicked);
                 quantityTextView.setText(itemQuantity_clicked);
             }

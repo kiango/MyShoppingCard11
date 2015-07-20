@@ -75,8 +75,7 @@ public class ItemDAO {
     }
 
 
-
-    // ToDo: large load of data ?
+    // ToDo: large load of data...
     public Cursor getItems(){
         Cursor cursor = null;
         try {

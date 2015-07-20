@@ -21,6 +21,7 @@ import android.widget.Toast;
 public class MainActivity extends ActionBarActivity {
 
     FragmentManager fragmentManager = getFragmentManager();
+    ItemDAO itemDAO;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +31,16 @@ public class MainActivity extends ActionBarActivity {
         // brings fragment 1 to the activity view by default / onCreate :
         //fragmentManager = getFragmentManager();
         fragmentManager.beginTransaction().add(R.id.fragment_container, new SelectItemFragment(), "ITEM_FRAGMENT").commit();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
     }
 
     @Override
@@ -58,11 +69,10 @@ public class MainActivity extends ActionBarActivity {
 
         if (id == R.id.item_frag) {
             // show item fragment only if it is not visible
-            Toast.makeText(getApplicationContext(), "item Fragment", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getApplicationContext(), "item Fragment", Toast.LENGTH_SHORT).show();
             Fragment selectItemFragment =  getFragmentManager().findFragmentByTag("ITEM_FRAGMENT");
             //if (selectItemFragment.isHidden())
             fragmentManager.beginTransaction().replace(R.id.fragment_container, new SelectItemFragment(), "ITEM_FRAGMENT").commit();
-
         }
 
         if (id == R.id.card_frag) {
